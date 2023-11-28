@@ -1,8 +1,7 @@
-package com.example.boilerplatejavaspringbootapi.restapi.role.entity;
+package com.example.boilerplatejavaspringbootapi.restapi.v1.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,27 +14,46 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
+/**
+ *
+ * @author ardyardyaaan
+ */
+
 @Entity
-@Table(name = "mst_role", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {
-        "role_id"
-    })
+@Table(name = "mst_user", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "user_id"
+        })
 })
-public class RoleEntity implements Serializable {
-    
+public class UserEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mst_role_gen")
-    @SequenceGenerator(name = "mst_role_gen", sequenceName = "role_id_seq", allocationSize = 1)
-    @Column(name = "role_id", length = 11, nullable = false)
-    private Integer roleId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mst_user_gen")
+    @SequenceGenerator(name = "mst_user_gen", sequenceName = "user_id_seq", allocationSize = 1)
+    @Column(name = "user_id", length = 11, nullable = false)
+    private Integer userId;
 
     @NotBlank
-    @Column(name = "role_name", length = 100, nullable = false)
-    private String roleName;
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
+
+    @NotBlank
+    @Column(name = "password", length = 255, nullable = false)
+    private String password;
+
+    @Column(name = "token", length = 255, nullable = true)
+    @Type(type = "text")
+    private String token;
+
+    @Column(name = "token_expired", length = 25, nullable = true)
+    private String tokenExpired;
+
+    @Column(name = "fullname", length = 100, nullable = true)
+    private String fullname;
 
     @NotBlank
     @Column(name = "start_date", length = 25, nullable = false)
@@ -48,6 +66,10 @@ public class RoleEntity implements Serializable {
     @NotNull
     @Column(name = "status", length = 11, nullable = false, columnDefinition = "integer default 1")
     private Integer status;
+
+    @NotNull
+    @Column(name = "is_reset_password", length = 11, nullable = false, columnDefinition = "integer default 1")
+    private Integer isResetPassword;
 
     @NotNull
     @Column(name = "created_by", length = 25, nullable = false)
@@ -66,34 +88,70 @@ public class RoleEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    public RoleEntity() {
-        
+    public UserEntity() {
+
     }
 
-    public RoleEntity(@NotBlank String roleName, @NotBlank String startDate, @NotBlank String endDate,
-            @NotNull Integer status, @NotNull Integer createdBy, Date createdAt) {
-        this.roleName = roleName;
+    public UserEntity(@NotBlank String email, @NotBlank String password, String fullname, @NotBlank String startDate,
+            @NotBlank String endDate, @NotNull Integer status, @NotNull Integer isResetPassword,
+            @NotNull Integer createdBy, Date createdAt) {
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.isResetPassword = isResetPassword;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getTokenExpired() {
+        return tokenExpired;
+    }
+
+    public void setTokenExpired(String tokenExpired) {
+        this.tokenExpired = tokenExpired;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getStartDate() {
@@ -118,6 +176,14 @@ public class RoleEntity implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIsResetPassword() {
+        return isResetPassword;
+    }
+
+    public void setIsResetPassword(Integer isResetPassword) {
+        this.isResetPassword = isResetPassword;
     }
 
     public Integer getCreatedBy() {
