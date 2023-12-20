@@ -1,13 +1,21 @@
 package com.example.boilerplatejavaspringbootapi.restapi.v1.role.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.boilerplatejavaspringbootapi.helper.ResponseList;
 import com.example.boilerplatejavaspringbootapi.helper.ResponseObject;
+import com.example.boilerplatejavaspringbootapi.request.RequestListDto;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.dto.RoleDto;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.entity.RoleEntity;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.repository.RoleRepository;
@@ -48,4 +56,27 @@ public class RoleService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> list(ResponseList response, RequestListDto request) {
+        
+        if (request.getPage() <= 0) {
+            response.setMessage("Jumlah Data dalam 1 halaman tidak boleh kurang dari 0");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        List<Optional<?>> result = new ArrayList<>();
+        Pageable paging = PageRequest.of(request.getPage() - 1,request.getPer_page());
+
+        List<RoleEntity> roles = roleRepository.findAllRole(paging, request.getKeyword(), request.getIs_active());
+
+        roles.forEach((data) -> {
+            List<?> listData = new ArrayList(Arrays.asList(data));
+            Optional<?> datas = listData.stream().findFirst();
+            result.add(datas);
+        });
+
+        response.setStatus("success");
+        response.setData(result);
+        response.setMessage("List Roles");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

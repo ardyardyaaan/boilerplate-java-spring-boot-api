@@ -11,12 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.boilerplatejavaspringbootapi.helper.ResponseList;
 import com.example.boilerplatejavaspringbootapi.helper.ResponseObject;
+import com.example.boilerplatejavaspringbootapi.request.RequestListDto;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.dto.RoleDto;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.service.RoleService;
 
@@ -59,6 +63,17 @@ public class RoleController {
             }
 
             return roleService.create(response, roleRequest);
+        } catch (Error e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> list(RequestListDto requestParam) throws ParseException {
+        ResponseList response = new ResponseList("failed", null, "Internal Server Error!");
+        try {
+            return roleService.list(response, requestParam);
         } catch (Error e) {
             e.printStackTrace();
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
