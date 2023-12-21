@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "da843285-ad53-439a-b2a1-581e1715c1c0",
+		"name": "Boilerplate-Java-Spring-Boot-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6634792"
+	},
+	"item": [
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/public/api/v1/role/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"public",
+								"api",
+								"v1",
+								"role",
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "admin",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8001/public/api/v1/role/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"role",
+										"list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "keyword",
+											"value": "admin",
+											"disabled": true
+										},
+										{
+											"key": "is_active",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Dec 2023 04:25:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"roleId\": 1,\n            \"roleName\": \"superadmin\",\n            \"startDate\": \"2023-01-01\",\n            \"endDate\": \"2100-01-01\",\n            \"status\": 1,\n            \"createdBy\": 0,\n            \"createdAt\": \"2023-11-28T01:57:06.689+00:00\",\n            \"updatedBy\": null,\n            \"updatedAt\": null\n        },\n        {\n            \"roleId\": 3,\n            \"roleName\": \"employee\",\n            \"startDate\": \"2023-12-21\",\n            \"endDate\": \"2023-12-31\",\n            \"status\": 1,\n            \"createdBy\": 0,\n            \"createdAt\": \"2023-12-21T04:12:06.317+00:00\",\n            \"updatedBy\": null,\n            \"updatedAt\": null\n        },\n        {\n            \"roleId\": 4,\n            \"roleName\": \"clients\",\n            \"startDate\": \"2023-12-21\",\n            \"endDate\": \"2023-12-31\",\n            \"status\": 0,\n            \"createdBy\": 0,\n            \"createdAt\": \"2023-12-21T04:13:25.264+00:00\",\n            \"updatedBy\": 1,\n            \"updatedAt\": \"2023-12-21T04:23:36.540+00:00\"\n        },\n        {\n            \"roleId\": 5,\n            \"roleName\": \"clientd\",\n            \"startDate\": \"2023-12-21\",\n            \"endDate\": \"2023-12-31\",\n            \"status\": 1,\n            \"createdBy\": 0,\n            \"createdAt\": \"2023-12-21T04:23:50.393+00:00\",\n            \"updatedBy\": null,\n            \"updatedAt\": null\n        }\n    ],\n    \"message\": \"List Role\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/public/api/v1/role/detail?id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"public",
+								"api",
+								"v1",
+								"role",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8001/public/api/v1/role/detail?id=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"role",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Dec 2023 04:23:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"roleId\": 5,\n        \"roleName\": \"clientd\",\n        \"startDate\": \"2023-12-21\",\n        \"endDate\": \"2023-12-31\",\n        \"status\": 1,\n        \"createdBy\": 0,\n        \"createdAt\": \"2023-12-21T04:23:50.393+00:00\",\n        \"updatedBy\": null,\n        \"updatedAt\": null\n    },\n    \"message\": \"Detail Role\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role_name\": \"clientx\",\n    \"start_date\": \"2023-12-21\",\n    \"end_date\": \"2023-12-31\",\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/public/api/v1/role/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"public",
+								"api",
+								"v1",
+								"role",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail Copy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"role_name\": \"clientx\",\n    \"start_date\": \"2023-12-21\",\n    \"end_date\": \"2023-12-31\",\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8001/public/api/v1/role/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"role",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Dec 2023 04:26:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"roleId\": 6,\n        \"roleName\": \"clientx\",\n        \"startDate\": \"2023-12-21\",\n        \"endDate\": \"2023-12-31\",\n        \"status\": 1,\n        \"createdBy\": 1,\n        \"createdAt\": \"2023-12-21T04:26:00.754+00:00\",\n        \"updatedBy\": null,\n        \"updatedAt\": \"2023-12-21T04:26:00.754+00:00\"\n    },\n    \"message\": \"Data was Saved Successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role_id\": 6,\n    \"role_name\": \"client\",\n    \"start_date\": \"2023-12-21\",\n    \"end_date\": \"2023-12-31\",\n    \"status\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/public/api/v1/role/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"public",
+								"api",
+								"v1",
+								"role",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"role_id\": 6,\n    \"role_name\": \"client\",\n    \"start_date\": \"2023-12-21\",\n    \"end_date\": \"2023-12-31\",\n    \"status\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8001/public/api/v1/role/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"role",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Dec 2023 04:26:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"roleId\": 6,\n        \"roleName\": \"client\",\n        \"startDate\": \"2023-12-21\",\n        \"endDate\": \"2023-12-31\",\n        \"status\": 0,\n        \"createdBy\": 1,\n        \"createdAt\": \"2023-12-21T04:26:00.592+00:00\",\n        \"updatedBy\": 1,\n        \"updatedAt\": \"2023-12-21T04:26:25.500+00:00\"\n    },\n    \"message\": \"Data was Updated Successfully\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
