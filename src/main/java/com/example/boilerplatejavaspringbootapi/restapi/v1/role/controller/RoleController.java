@@ -49,6 +49,7 @@ public class RoleController {
                 FieldError errorRoleName = result.getFieldError("role_name");
                 FieldError errorStartDate = result.getFieldError("start_date");
                 FieldError errorEndDate = result.getFieldError("end_date");
+                FieldError errorStatus = result.getFieldError("status");
 
                 if (errorRoleName != null) {
                     response.setMessage("Role Name Cannot be Empty");
@@ -58,6 +59,9 @@ public class RoleController {
                     return new ResponseEntity(response, HttpStatus.OK);
                 } else if (errorEndDate != null) {
                     response.setMessage("Valid To Cannot be Empty");
+                    return new ResponseEntity(response, HttpStatus.OK);
+                } else if (errorStatus != null) {
+                    response.setMessage("Status Cannot be Empty");
                     return new ResponseEntity(response, HttpStatus.OK);
                 }
             }
@@ -74,6 +78,56 @@ public class RoleController {
         ResponseList response = new ResponseList("failed", null, "Internal Server Error!");
         try {
             return roleService.list(response, requestParam);
+        } catch (Error e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody RoleDto roleRequest, Errors errors, BindingResult result) throws ParseException {
+        ResponseObject response = new ResponseObject("failed", null, "Internal Server Error!");
+
+        try {
+            if (roleRequest.getRole_id() == null) {
+                response.setMessage("Role ID Cannot be Empty");
+                return new ResponseEntity(response, HttpStatus.OK);
+            }
+
+            if (errors.hasErrors()) {
+                FieldError errorRoleName = result.getFieldError("role_name");
+                FieldError errorStartDate = result.getFieldError("start_date");
+                FieldError errorEndDate = result.getFieldError("end_date");
+                FieldError errorStatus = result.getFieldError("status");
+
+                if (errorRoleName != null) {
+                    response.setMessage("Role Name Cannot be Empty");
+                    return new ResponseEntity(response, HttpStatus.OK);
+                } else if (errorStartDate != null) {
+                    response.setMessage("Valid From Cannot be Empty");
+                    return new ResponseEntity(response, HttpStatus.OK);
+                } else if (errorEndDate != null) {
+                    response.setMessage("Valid To Cannot be Empty");
+                    return new ResponseEntity(response, HttpStatus.OK);
+                } else if (errorStatus != null) {
+                    response.setMessage("Status Cannot be Empty");
+                    return new ResponseEntity(response, HttpStatus.OK);
+                }
+            }
+
+            return roleService.update(response, roleRequest);
+        } catch (Error e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<?> detail(@RequestParam("id") Integer id) {
+        ResponseObject response = new ResponseObject("failed", null, "Internal Server Error!");
+
+        try {
+            return roleService.detail(response, id);
         } catch (Error e) {
             e.printStackTrace();
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);

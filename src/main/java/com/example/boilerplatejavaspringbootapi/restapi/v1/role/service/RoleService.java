@@ -32,6 +32,7 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public ResponseEntity<?> create(ResponseObject response, RoleDto request) {
+        Optional<?> result = Optional.empty();
 
         String roleName = request.getRole_name().trim().toLowerCase();
         RoleEntity checkRoleName = roleRepository.findByRoleName(roleName);
@@ -46,12 +47,16 @@ public class RoleService {
                 request.getStart_date(),
                 request.getEnd_date(),
                 1,
-                0,
+                1,
                 new Date());
 
         roleRepository.save(role);
 
+        List<?> roles = new ArrayList(Arrays.asList(role));
+        result = roles.stream().findFirst();
+
         response.setStatus("success");
+        response.setData(result);
         response.setMessage("Data was Saved Successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -76,7 +81,55 @@ public class RoleService {
 
         response.setStatus("success");
         response.setData(result);
-        response.setMessage("List Roles");
+        response.setMessage("List Role");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> update(ResponseObject response, RoleDto request) {
+        Optional<?> result = Optional.empty();
+        RoleEntity checkRoleName = roleRepository.findByRoleNameNotId(request.getRole_id(), request.getRole_name().trim().toLowerCase());
+        if (checkRoleName != null) {
+            response.setMessage("Role Name Already Exist");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        RoleEntity dataRole = roleRepository.findByRoleId(request.getRole_id());
+        if (dataRole == null) {
+            response.setMessage("Role Not Found");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        dataRole.setRoleName(request.getRole_name());
+        dataRole.setStartDate(request.getStart_date());
+        dataRole.setEndDate(request.getEnd_date());
+        dataRole.setStatus(request.getStatus());
+        dataRole.setUpdatedBy(1);
+        dataRole.setUpdatedAt(new Date());
+        roleRepository.save(dataRole);
+
+        List<?> roles = new ArrayList(Arrays.asList(dataRole));
+        result = roles.stream().findFirst();
+
+        response.setStatus("success");
+        response.setData(result);
+        response.setMessage("Data was Updated Successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> detail(ResponseObject response, Integer id) {
+        Optional<?> result = Optional.empty();
+
+        RoleEntity dataRole = roleRepository.findByRoleId(id);
+        if (dataRole == null) {
+            response.setMessage("Role Not Found");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        List<?> roles = new ArrayList(Arrays.asList(dataRole));
+        result = roles.stream().findFirst();
+
+        response.setStatus("success");
+        response.setData(result);
+        response.setMessage("Detail Role");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

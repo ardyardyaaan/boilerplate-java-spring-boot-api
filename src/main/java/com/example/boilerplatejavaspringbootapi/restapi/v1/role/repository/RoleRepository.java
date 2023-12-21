@@ -31,7 +31,7 @@ public interface RoleRepository extends PagingAndSortingRepository<RoleEntity, I
             "updated_by, " +
             "updated_at from mst_role " +
             "where lower(role_name) = :roleName " +
-            "and status = 1 ", nativeQuery = true)
+            "and status = 1", nativeQuery = true)
     RoleEntity findByRoleName(@Param("roleName") String roleName);
 
     @Query(value = "select role_id, " +
@@ -57,6 +57,33 @@ public interface RoleRepository extends PagingAndSortingRepository<RoleEntity, I
             "updated_by, " +
             "updated_at from mst_role " +
             "where role_name ilike coalesce((concat('%',:roleName,'%')), role_name) " +
-            "and status = coalesce(:isActive, status) ", nativeQuery = true)
+            "and status = coalesce(:isActive, status)", nativeQuery = true)
     List<RoleEntity> findAllRole(Pageable paging, @Param("roleName") String roleName, @Param("isActive") Integer isActive);
+
+    @Query(value = "select role_id, " +
+        "role_name, " +
+        "status, " + 
+        "start_date, " + 
+        "end_date, " + 
+        "created_by, " +
+        "created_at, " + 
+        "updated_by, " +
+        "updated_at from mst_role " + 
+        "where role_id != :roleId " +
+        "and lower(role_name) = :roleName " +
+        "and status = 1", nativeQuery = true)
+    RoleEntity findByRoleNameNotId(@Param("roleId") Integer roleId, @Param("roleName") String roleName);
+
+    @Query(value = "select role_id, " +
+        "role_name, " +
+        "status, " + 
+        "start_date, " + 
+        "end_date, " + 
+        "created_by, " +
+        "created_at, " + 
+        "updated_by, " +
+        "updated_at from mst_role " + 
+        "where role_id = :roleId " +
+        "and status = 1", nativeQuery = true)
+    RoleEntity findByRoleId(@Param("roleId") Integer roleId);
 }

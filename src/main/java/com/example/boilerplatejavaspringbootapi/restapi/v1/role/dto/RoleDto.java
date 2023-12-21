@@ -3,6 +3,7 @@ package com.example.boilerplatejavaspringbootapi.restapi.v1.role.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 /**
  *
@@ -21,6 +22,8 @@ public class RoleDto implements Serializable {
     
     @NotBlank
     private String end_date;
+
+    private Integer status;
 
     public Integer getRole_id() {
         return role_id;
@@ -52,6 +55,14 @@ public class RoleDto implements Serializable {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }
