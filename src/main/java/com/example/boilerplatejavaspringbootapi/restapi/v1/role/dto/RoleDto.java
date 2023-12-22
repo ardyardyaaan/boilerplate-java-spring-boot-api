@@ -3,7 +3,6 @@ package com.example.boilerplatejavaspringbootapi.restapi.v1.role.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 /**
  *
