@@ -1,23 +1,19 @@
 package com.example.boilerplatejavaspringbootapi.restapi.v1.user.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.mail.MailException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.boilerplatejavaspringbootapi.helper.ResponseObject;
-import com.example.boilerplatejavaspringbootapi.restapi.v1.user.dto.UserDto;
+import com.example.boilerplatejavaspringbootapi.responses.ResponseObject;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.user.service.UserService;
 
 /**
@@ -30,14 +26,11 @@ import com.example.boilerplatejavaspringbootapi.restapi.v1.user.service.UserServ
 public class UserController {
 
     @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
     UserService userService;
 
-    @PostMapping("/create/superadmin")
+    @GetMapping("/create/superadmin")
     public ResponseEntity<?> create()
-            throws ParseException {
+            throws ParseException, NoSuchAlgorithmException, MailException, MessagingException {
         ResponseObject response = new ResponseObject("failed", null, "Internal Server Error!");
 
         try {

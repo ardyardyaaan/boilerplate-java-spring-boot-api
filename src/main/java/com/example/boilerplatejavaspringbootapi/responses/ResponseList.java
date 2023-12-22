@@ -1,30 +1,20 @@
-package com.example.boilerplatejavaspringbootapi.helper;
-
-import java.util.Optional;
+package com.example.boilerplatejavaspringbootapi.responses;
 
 /**
  *
  * @author ardyardyaaan
  */
 
-public class ResponseObject {
-
+public class ResponseList<T> {
+    
     private String status;
-    private Optional<?> data;
+    private T data;
     private String message;
 
-    public ResponseObject(String status, Optional<?> data, String message) {
+    public ResponseList(String status, T data, String message) {
         this.status = status;
         this.data = data;
         this.message = message;
-    }
-
-    public ResponseObject() {
-    }
-
-    public ResponseObject failedResponse() {
-        ResponseObject response = new ResponseObject("failed", null, "Internal Server Error");
-        return response;
     }
 
     public String getStatus() {
@@ -35,11 +25,11 @@ public class ResponseObject {
         this.status = status;
     }
 
-    public Optional<?> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Optional<?> data) {
+    public void setData(T data) {
         this.data = data;
     }
 
@@ -50,5 +40,5 @@ public class ResponseObject {
     public void setMessage(String message) {
         this.message = message;
     }
-
+    
 }

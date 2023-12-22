@@ -13,12 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.boilerplatejavaspringbootapi.helper.ResponseList;
-import com.example.boilerplatejavaspringbootapi.helper.ResponseObject;
 import com.example.boilerplatejavaspringbootapi.request.RequestListDto;
+import com.example.boilerplatejavaspringbootapi.responses.ResponseList;
+import com.example.boilerplatejavaspringbootapi.responses.ResponseObject;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.dto.RoleDto;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.entity.RoleEntity;
 import com.example.boilerplatejavaspringbootapi.restapi.v1.role.repository.RoleRepository;
+import com.example.boilerplatejavaspringbootapi.restapi.v1.user.entity.UserEntity;
 
 /**
  *
@@ -31,7 +32,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public ResponseEntity<?> create(ResponseObject response, RoleDto request) {
+    public ResponseEntity<?> create(ResponseObject response, RoleDto request, UserEntity dataToken) {
         Optional<?> result = Optional.empty();
 
         String roleName = request.getRole_name().trim().toLowerCase();
@@ -47,7 +48,7 @@ public class RoleService {
                 request.getStart_date(),
                 request.getEnd_date(),
                 1,
-                1,
+                dataToken.getUserId(),
                 new Date());
 
         roleRepository.save(role);
@@ -61,7 +62,7 @@ public class RoleService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> list(ResponseList response, RequestListDto request) {
+    public ResponseEntity<?> list(ResponseList response, RequestListDto request, UserEntity dataToken) {
         
         if (request.getPage() <= 0) {
             response.setMessage("Jumlah Data dalam 1 halaman tidak boleh kurang dari 0");
@@ -85,7 +86,7 @@ public class RoleService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> update(ResponseObject response, RoleDto request) {
+    public ResponseEntity<?> update(ResponseObject response, RoleDto request, UserEntity dataToken) {
         Optional<?> result = Optional.empty();
         RoleEntity checkRoleName = roleRepository.findByRoleNameNotId(request.getRole_id(), request.getRole_name().trim().toLowerCase());
         if (checkRoleName != null) {
@@ -98,6 +99,7 @@ public class RoleService {
             response.setMessage("Role Not Found");
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
+
         dataRole.setRoleName(request.getRole_name());
         dataRole.setStartDate(request.getStart_date());
         dataRole.setEndDate(request.getEnd_date());
@@ -115,7 +117,7 @@ public class RoleService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public ResponseEntity<?> detail(ResponseObject response, Integer id) {
+    public ResponseEntity<?> detail(ResponseObject response, Integer id, UserEntity dataToken) {
         Optional<?> result = Optional.empty();
 
         RoleEntity dataRole = roleRepository.findByRoleId(id);
